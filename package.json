@@ -1,0 +1,23 @@
+{
+  "name": "seneca_client_for_ng2",
+  "version": "1.0.0",
+  "description": "a thin client to invoke seneca microservice",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cao5zy/seneca_client_for_ng2.git"
+  },
+  "keywords": [
+    "seneca",
+    "ng2"
+  ],
+  "author": "zongying.cao@hpe.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cao5zy/seneca_client_for_ng2/issues"
+  },
+  "homepage": "https://github.com/cao5zy/seneca_client_for_ng2#readme"
+}
