@@ -4,6 +4,7 @@ This is a library for ng2 client to invoke methods of microservices which is bas
 
 ## Installation
 
+    npm install seneca_ng2_client
 
 ## Use in your code
 
