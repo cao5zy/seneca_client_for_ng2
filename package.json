@@ -2,9 +2,10 @@
   "name": "seneca_client_for_ng2",
   "version": "1.0.0",
   "description": "a thin client to invoke seneca microservice",
-  "main": "main.ts",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "build": "webpack -w"
   },
   "repository": {
     "type": "git",
