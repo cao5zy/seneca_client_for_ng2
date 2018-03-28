@@ -5,12 +5,16 @@
   "main": "./dist/index.js",
   "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "build": "tsc -p ."
+      "build": "tsc -p .",
+      "rebuild": "npm run clean && npm run build",
+      "clean": "rm dist -rf"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cao5zy/seneca_client_for_ng2.git"
   },
+    "types": "./dist/index.d.ts",
+    "typings": "./dist/index.d.ts",
   "keywords": [
     "seneca",
     "ng2"
@@ -23,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/cao5zy/seneca_client_for_ng2/issues"
   },
-  "homepage": "https://github.com/cao5zy/seneca_client_for_ng2#readme"
+    "homepage": "https://github.com/cao5zy/seneca_client_for_ng2#readme",
+    "engines": {
+	"node": ">=6.10.3"
+    }
 }
