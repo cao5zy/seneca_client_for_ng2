@@ -1,6 +1,6 @@
 {
   "name": "seneca_client_for_ng2",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "a thin client to invoke seneca microservice",
   "main": "./index.ts",
   "scripts": {
