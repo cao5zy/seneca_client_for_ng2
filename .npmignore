@@ -1,6 +1,8 @@
 /.git/
 /node_modules/
+/dist/
+*~
 .npmignore
 .gitignore
 tsconfig.json
-webpackage.json.js
+webpack.config.js
