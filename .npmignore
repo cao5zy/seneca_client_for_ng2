@@ -3,3 +3,4 @@
 .npmignore
 .gitignore
 tsconfig.json
+webpackage.json.js
