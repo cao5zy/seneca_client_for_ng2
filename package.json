@@ -2,12 +2,9 @@
   "name": "seneca_client_for_ng2",
   "version": "1.0.2",
   "description": "a thin client to invoke seneca microservice",
-  "main": "./dist/index.js",
+  "main": "./index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p .",
-    "rebuild": "npm run clean && npm run build",
-    "clean": "rm dist -rf"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -31,9 +28,5 @@
   "engines": {
     "node": ">=6.10.3"
   },
-  "dependencies": {
-    "@angular/core": "^4.4.6",
-    "@angular/http": "^4.4.6",
-    "rxjs": "^5.5.8"
-  }
+  "dependencies": {}
 }
