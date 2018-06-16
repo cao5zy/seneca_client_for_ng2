@@ -63,7 +63,7 @@ To initialize *MicroserviceClient* object, you have to specify an InjectionToken
 The pre-condition of this library is assuming that your microservice instances is deployed behind a proxy. Each microservice instance has its own unique name in the url.  
 For example, name_of_your_service is interface_service. Then the generated url is as following.
 
-    http://baseUrl/interface_service/act
+    http://baseUrl/_api/interface_service/act
 
 
 ### methodName
