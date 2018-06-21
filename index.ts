@@ -29,7 +29,7 @@ export class MicroserviceClient extends Service{
         let rest_methods = ["get", "post", "delete", "patch"];
 
         function is_rest() {
-          return methodName.toLowerCase() in rest_methods;
+          return _.find(rest_methods, n=>n==methodName.toLowerCase());
         }
 
         function build_rest_url() {
@@ -87,10 +87,11 @@ export class MicroserviceClient extends Service{
     }
 }
 
-export function useService(service: Service, microserviceName: string): (string)=>(any, any)=>Observable<any>{
-    return (methodName: string): (any, any)=>Observable<any> =>{
-        return (id: any, param: any): Observable<any> =>{
-	    return service.act(microserviceName, methodName, id, param);
+export function useService(service: Service, microserviceName: string): (string)=>(any)=>Observable<any>{
+    return (methodName: string): (any)=>Observable<any> =>{
+        return (param: any): Observable<any> =>{
+	    let getp = _.propertyOf(param);
+	    return service.act(microserviceName, methodName, getp("id") ? getp("id") : param, getp("param") ? getp("param") : null);
         };
     };
 }
