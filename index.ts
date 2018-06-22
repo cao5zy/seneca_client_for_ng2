@@ -26,10 +26,10 @@ export class MicroserviceClient extends Service{
     }
     act(microserviceName: string, methodName: string, id: any, param: any): Observable<any>{
 
-        let rest_methods = ["get", "post", "delete", "patch"];
+        let rest_methods = ["get", "post", "delete", "patch"], self = this;
 
         function is_rest() {
-          return _.find(rest_methods, n=>n==methodName.toLowerCase());
+          return !_.isUndefined(_.find(rest_methods, n=>n==methodName.toLowerCase()));
         }
 
         function build_rest_url() {
@@ -38,16 +38,16 @@ export class MicroserviceClient extends Service{
 	  })(
 	  {
             "get": function(){
-	      return param ? `${this.buildUrl(microserviceName)}/${id}` : `${this.buildUrl(microserviceName)}`;
+	      return id ? `${self.buildUrl(microserviceName)}/${microserviceName}/${id}` : `${self.buildUrl(microserviceName)}/${microserviceName}`;
 	    },
 	    "post": function(){
-              return this.buildUrl(microserviceName);
+              return `${self.buildUrl(microserviceName)}/${microserviceName}`;
             },
 	    "delete": function(){
-              return `${this.buildUrl(microserviceName)}/${id}`;
+              return `${self.buildUrl(microserviceName)}/${microserviceName}/${id}`;
             },
 	    "patch": function(){
-	      return `${this.buildUrl(microserviceName)}/${id}`;
+	      return `${self.buildUrl(microserviceName)}/${microserviceName}/${id}`;
             }
           }
 	  );
@@ -55,28 +55,28 @@ export class MicroserviceClient extends Service{
 
         let rest_actions = {
           "get": function(){
-            return this.http.get(build_rest_url());
+            return self.http.get(build_rest_url());
           },
 	  "post": function(){
-	    return this.http.post(build_rest_url(), param);
+	    return self.http.post(build_rest_url(), param);
 	  },
 	  "delete": function(){
-	    return this.http.delete(build_rest_url());
+	    return self.http.delete(build_rest_url());
 	  },
 	  "patch": function(){
-	    return this.http.patch(build_rest_url(), param);
+	    return self.http.patch(build_rest_url(), param);
 	  }
         };
 
         return is_rest() ? new Observable<any>((observer: Observer<any>)=>{
 	  rest_actions[methodName.toLowerCase()]().
 	    subscribe(res=>{
-	      observer.next(res);
+              observer.next("_body" in res ? JSON.parse(res["_body"]) : res);
 	    });
 	  
 	}) :
 	    new Observable<any>((observer: Observer<any>)=>{
-	      this.http.post(this.buildUrl(microserviceName), {
+	      self.http.post(`${self.buildUrl(microserviceName)}/act`, {
 		action: methodName,
 		param: param
 		}).subscribe((res)=>{
