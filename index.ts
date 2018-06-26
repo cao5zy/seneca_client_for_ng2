@@ -91,7 +91,7 @@ export function useService(service: Service, microserviceName: string): (string)
     return (methodName: string): (any)=>Observable<any> =>{
         return (param: any): Observable<any> =>{
 	    let getp = _.propertyOf(param);
-	    return service.act(microserviceName, methodName, getp("id") ? getp("id") : param, getp("param") ? getp("param") : null);
+	    return service.act(microserviceName, methodName, getp("id") ? getp("id") : param, getp("param") ? getp("param") : param);
         };
     };
 }
