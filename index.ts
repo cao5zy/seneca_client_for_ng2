@@ -1,8 +1,9 @@
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
 import { Injectable, InjectionToken, Inject } from '@angular/core';
 import * as _ from 'underscore';
+import { AccountService } from './account';
 
 export interface MicroServiceAPIConfig {
     baseUrl: string
@@ -18,7 +19,9 @@ export abstract class Service{
 @Injectable()
 export class MicroserviceClient extends Service{
     private buildUrl: (string)=>string;
-    constructor(private http: Http, @Inject(MICRO_API_CONF) apiConfig: MicroServiceAPIConfig){
+    constructor(private http: Http,
+      private account: AccountService,
+      @Inject(MICRO_API_CONF) apiConfig: MicroServiceAPIConfig){
       super();
       this.buildUrl = (microserviceName:string):string=>{
         return `${apiConfig.baseUrl}/_api/${microserviceName}`;
@@ -55,16 +58,36 @@ export class MicroserviceClient extends Service{
 
         let rest_actions = {
           "get": function(){
-            return self.http.get(build_rest_url());
+            return self.http.get(build_rest_url(), {
+	      headers: new Headers({
+		       "name": self.account.getName(),
+		       "token": self.account.getToken()
+		     })
+	    });
           },
 	  "post": function(){
-	    return self.http.post(build_rest_url(), param);
+	    return self.http.post(build_rest_url(), param, {
+	      "headers": new Headers({
+		       "name": self.account.getName(),
+		       "token": self.account.getToken()
+		     })
+	    });
 	  },
 	  "delete": function(){
-	    return self.http.delete(build_rest_url());
+	    return self.http.delete(build_rest_url(), {
+	      "headers": new Headers({
+		       "name": self.account.getName(),
+		       "token": self.account.getToken()
+		     })
+	    });
 	  },
 	  "patch": function(){
-	    return self.http.patch(build_rest_url(), param);
+	    return self.http.patch(build_rest_url(), param, {
+	      "headers": new Headers({
+		       "name": self.account.getName(),
+		       "token": self.account.getToken()
+		     })
+	    });
 	  }
         };
 
@@ -79,6 +102,12 @@ export class MicroserviceClient extends Service{
 	      self.http.post(`${self.buildUrl(microserviceName)}/act`, {
 		action: methodName,
 		param: param
+		},
+		{
+		  "headers": new Headers({
+		    "name": self.account.getName(),
+		    "token": self.account.getToken()
+		  })
 		}).subscribe((res)=>{
                      observer.next("_body" in res ? JSON.parse(res["_body"]) : res);
 	        });
@@ -95,3 +124,5 @@ export function useService(service: Service, microserviceName: string): (string)
         };
     };
 }
+
+export { AccountService } from './account';
