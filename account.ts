@@ -5,7 +5,7 @@ export class AccountService {
   project: string = "";
   private userName: string = "";
   private token: string = "";
-  private statusChanged = new EventEmitter<string>(); //params account_changed
+  statusChanged = new EventEmitter<string>(); //params account_changed
   
   constructor(){}
 
