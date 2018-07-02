@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 @Injectable()
 export class AccountService {
   project: string = "";
-  constructor(
-    private userName: string = "",
-    private token: string = ""){}
+  private userName: string = "";
+  private token: string = "";
+  private statusChanged = new EventEmitter<string>(); //params account_changed
+  
+  constructor(){}
 
   reset() {
     this.set();
@@ -22,6 +24,7 @@ export class AccountService {
   set(userName: string = "", token: string = ""){
     this.userName = token && token.length != 0 ? userName : "";
     this.token = typeof token == 'undefined' ? "": token;
+    this.statusChanged.next("account_changed");
   }
 
   hasToken(): boolean {
