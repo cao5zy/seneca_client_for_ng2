@@ -3,11 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AccountService {
   project: string = "";
-  userName: string = "";
-  token: string = "";
-  // constructor(
-  //   private userName: string = "",
-  //   private token: string = ""){}
+  constructor(
+    private userName: string = "",
+    private token: string = ""){}
 
   reset() {
     this.set();
