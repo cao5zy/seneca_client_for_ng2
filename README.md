@@ -1,31 +1,36 @@
 # Seneca Client For Ng2
 
-This is a typescript library for AngularJs2 to invoke methods of microservices which is based on [seneca framework](https://github.com/senecajs/seneca).  
-
-It has dependencies to "rxjs", "@angular/core" and "@angular/http" in your AngularJs2 project environment.
+This is a typescript library for AngularJs2 to invoke methods of microservices through microservice gateway.    
 
 ## Installation
 
-    npm install seneca_ng2_client
+    npm install seneca_ng2_client --save
 
-## Use it in your code
+## Precondition
 
-First, import the types to your file.
+It assumes that the service url has the following tow patterns:  
+*REST pattern: http://host:port/_api/service_name/resource_name  
+*Seneca pattern: http://host:port/_api/service_name/act  
 
-    import { useService, Service } from 'seneca_client_for_ng2';
+## Use it REST pattern
+Let's assume that the `service_name` is `interface_service` and the `resource_name` is `interface`.
+Import the types to your file.
 
-Second, initialize the service object.
+    import { useService, Service, AccountService } from 'seneca_client_for_ng2'
+   
+Initialize the service object.
 
     private senecaClient : any = null;  
-    constructor(private service: Service){
-        this.senecaClient = useService(*this.service*, "*name_of_your_service*");
+    constructor(private service: Service
+    ){
+        this.senecaClient = useService(this.service, "interface_service");
     }
 
-Third, call the method on the seervice.
+Post data to service. 
 
     private loadData(){
         let param = {};
-        this.senecaClient("*methodName*")(*param*)
+        this.senecaClient("post")({param: this.appModuleview}));
 	    .subscribe(res=>{
             console.log(res);
 	    // your code for handling data is here.
