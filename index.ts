@@ -35,22 +35,28 @@ export class MicroserviceClient extends Service{
           return !_.isUndefined(_.find(rest_methods, n=>n==methodName.toLowerCase()));
         }
 
+        function get_resource_name(): string {
+	  return ((arrs)=>{
+	    return arrs.length == 1 ? arrs[0] : arrs[1];
+	  })(microserviceName.split(':'));
+	}
+
         function build_rest_url() {
           return ((dict)=>{
 	    return dict[methodName.toLowerCase()]();
 	  })(
 	  {
             "get": function(){
-	      return id ? `${self.buildUrl(microserviceName)}/${microserviceName}/${id}` : `${self.buildUrl(microserviceName)}/${microserviceName}`;
+	      return id ? `${self.buildUrl(microserviceName)}/${get_resource_name()}/${id}` : `${self.buildUrl(microserviceName)}/${get_resource_name()}`;
 	    },
 	    "post": function(){
-              return `${self.buildUrl(microserviceName)}/${microserviceName}`;
+              return `${self.buildUrl(microserviceName)}/${get_resource_name()}`;
             },
 	    "delete": function(){
-              return `${self.buildUrl(microserviceName)}/${microserviceName}/${id}`;
+              return `${self.buildUrl(microserviceName)}/${get_resource_name()}/${id}`;
             },
 	    "patch": function(){
-	      return `${self.buildUrl(microserviceName)}/${microserviceName}/${id}`;
+	      return `${self.buildUrl(microserviceName)}/${get_resource_name()}/${id}`;
             }
           }
 	  );
