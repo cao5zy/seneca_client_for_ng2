@@ -41,22 +41,28 @@ export class MicroserviceClient extends Service{
 	  })(microserviceName.split(':'));
 	}
 
+       function get_microservice_name(): string{
+         return ((arrs)=>{
+	   return arrs[0];
+	 })(microserviceName.split(':'));
+       }
+       
         function build_rest_url() {
           return ((dict)=>{
 	    return dict[methodName.toLowerCase()]();
 	  })(
 	  {
             "get": function(){
-	      return id ? `${self.buildUrl(microserviceName)}/${get_resource_name()}/${id}` : `${self.buildUrl(microserviceName)}/${get_resource_name()}`;
+	      return id ? `${self.buildUrl(get_microservice_name())}/${get_resource_name()}/${id}` : `${self.buildUrl(get_microservice_name())}/${get_resource_name()}`;
 	    },
 	    "post": function(){
-              return `${self.buildUrl(microserviceName)}/${get_resource_name()}`;
+              return `${self.buildUrl(get_microservice_name())}/${get_resource_name()}`;
             },
 	    "delete": function(){
-              return `${self.buildUrl(microserviceName)}/${get_resource_name()}/${id}`;
+              return `${self.buildUrl(get_microservice_name())}/${get_resource_name()}/${id}`;
             },
 	    "patch": function(){
-	      return `${self.buildUrl(microserviceName)}/${get_resource_name()}/${id}`;
+	      return `${self.buildUrl(get_microservice_name())}/${get_resource_name()}/${id}`;
             }
           }
 	  );
