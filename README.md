@@ -2,6 +2,8 @@
 
 This is a typescript library for AngularJs2 to invoke methods of microservices through microservice gateway.    
 
+The repository is no longer maitained. The development will go on at [http-micro-service-front](https://github.com/cao5zy/http-micro-service-client).
+
 ## Installation
 
     npm install seneca_ng2_client --save
